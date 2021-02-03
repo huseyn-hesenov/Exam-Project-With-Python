@@ -1,0 +1,33 @@
+import PrintMessages, os, Utils
+
+
+def ChooseFunction(chooseMessage):
+    while True:
+        choose = input(chooseMessage).strip()
+        if choose:
+            break
+        PrintMessages.UserNameWrongEnterPrint()
+    return choose
+
+
+def CreateDirectory(dir, name):
+    fullPath = dir + name
+    if not os.path.exists(fullPath):
+        os.mkdir(fullPath)
+
+
+def GetListFromDirectory(dir):
+    os.chdir(dir)
+    fileList = os.listdir()
+    return fileList
+
+
+def printAllFilesContent(dir):
+    answrdQuestionList = Utils.GetListFromDirectory(dir)
+    for question in answrdQuestionList:
+        ansObj = open(dir + question)
+        objdata = ansObj.read()
+        print(str(question).replace(".txt", "").replace("SUAL", ""), "Nomreli Sual")
+        print(objdata)
+        ansObj.close()
+        print("\n\n")

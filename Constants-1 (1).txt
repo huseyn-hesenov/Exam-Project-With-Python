@@ -1,0 +1,23 @@
+PROJECT_PATH = "D:\\My Works\\Developia\\Project\\"
+CAVABLAR = "CAVABLAR\\"
+SUALLAR = "SUALLAR\\"
+QUESTIONS = "QUESTIONS\\"
+
+ADMIN_SELECTED = "1"
+USER_SELECTED = "2"
+EXIT_SELECTED = "3"
+
+CHOOSE_LIST = [ADMIN_SELECTED, USER_SELECTED, EXIT_SELECTED]
+PLEASE_ENTER_USERNAME = "Zehmet olmasa adinizi daxil edin:"
+PLEASE_CHOOSE = "Zehmet olmasa secim ederdiniz:"
+ENTER_PASSWORD = "Zehmet olmasa Sifreni Daxil Edin:"
+DELETE_QUESTION = "Hansi Suali Silmek istediyinizi secin:"
+PLEASE_ENTER_QUESTION_ANSWER = "Zehmet olmasa duzgun cavab bendini secerdiniz:"
+CORRECT_ANSWERS_FILE = "DogruCavablar.txt"
+PASSWORD_FILE = "PasswordFile.txt"
+RESULT_FILE = "Result.txt"
+ENTER_QUESTION_DATA = "Zehmet olmasa sualin metnini daxil edin:"
+SECIM1 = "Zehmet olmasa 1 ci varianti daxil edin:"
+SECIM2 = "Zehmet olmasa 2 ci varianti daxil edin:"
+SECIM3 = "Zehmet olmasa 3 ci varianti daxil edin:"
+CORRECT_SECIM = "Zehmet olmasa 1,2,3 secimden birini secerek dogru varianti daxil edin:"

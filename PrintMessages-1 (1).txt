@@ -1,0 +1,54 @@
+def WelcomePage():
+    print("""****** İmtahan programına xoş gəlmisiniz. Zəhmət olmasa seçim edərdiniz!! *****
+            1.Admin kimi daxil ol
+            2.Imtahanda İştirak et
+            3.Imtahanı bitir
+    """)
+
+
+def MainMenuWrongChoose():
+    print("Sehv secim etdiniz. Zehmet olmasa yeniden secim ederdiniz.")
+
+
+def WrongNumberEntry():
+    print("3 defe sehv secim etdiniz. Program yekunlasdi!!!")
+
+
+def QuestionDeletedSuccess(questNumber):
+    print(questNumber, "Sual Ugurla silindi!!!")
+
+
+def QuestionAddedSuccess(questName):
+    print(questName, " Ugurla Elave olundu!!!")
+
+
+def ExitProgram():
+    print("Programdan Ugurla Cixis etdiniz!!!")
+
+
+def UserNameWrongEnterPrint():
+    print("Daxil edilen Melumat sehvdir")
+
+
+def ExamStarted():
+    print("IMTAHAN BASLADI. UGURLAR")
+
+
+def PrintQuestionNumber(questionNumber):
+    print("\n" + str(questionNumber) + "- Nomreli Sual:")
+
+
+def PrintResultFunction(corr, wrong):
+    percent = round((corr * 100) / (corr + wrong), 2)
+    print("""****** İmtahanı uğurla tamamladınız.Sizin imtahan nəticəniz """ + str(percent) + """ %  təşkil edir ** ** *
+    1.    Sualların    düzgün    cavablarına    bax
+    2.    Çıx
+    """)
+
+
+def PrintAdminMain():
+    print("""****** Admin kimi proqrama daxil oldunuz! *****
+        1.Suallara bax
+        2.Sual əlavə et
+        3.Sual sil
+        4.Çıx""")

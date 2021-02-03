@@ -1,0 +1,117 @@
+import PrintMessages, Constants, Utils, os
+
+
+def deleteQuestion():
+    fullPath = Constants.PROJECT_PATH + Constants.SUALLAR
+    Utils.printAllFilesContent(fullPath)
+    deleteChoose = Utils.ChooseFunction(Constants.DELETE_QUESTION)
+    questionList = Utils.GetListFromDirectory(Constants.PROJECT_PATH + Constants.SUALLAR)
+    enteredQuestionName = "SUAL" + str(deleteChoose.strip()) + ".txt"
+
+    Flag = False
+    counter = 1
+    while True:
+        if enteredQuestionName in questionList:
+            os.remove(fullPath + enteredQuestionName)
+            readObj = open(Constants.PROJECT_PATH + Constants.CORRECT_ANSWERS_FILE)
+            lines = readObj.readlines()
+            readObj.close()
+            allLine = ""
+            for line in lines:
+                if enteredQuestionName.replace(".txt", "") + ":" in line:
+                    pass
+                else:
+                    allLine = allLine + line
+
+            deleteAnswerObj = open(Constants.PROJECT_PATH + Constants.CORRECT_ANSWERS_FILE, "w")
+            deleteAnswerObj.write(allLine)
+            deleteAnswerObj.close()
+            PrintMessages.QuestionDeletedSuccess(enteredQuestionName.replace(".txt", ""))
+            Flag = True
+            break
+        else:
+            counter = counter + 1
+            deleteChoose = Utils.ChooseFunction(Constants.DELETE_QUESTION)
+            enteredQuestionName = "SUAL" + str(deleteChoose.strip()) + ".txt"
+            print(enteredQuestionName)
+        if counter.__eq__(3):
+            PrintMessages.WrongNumberEntry()
+            Flag = True
+            break
+
+    return Flag
+
+
+def AdminSelectedOperations():
+    passFileObj = open(Constants.PROJECT_PATH + Constants.PASSWORD_FILE)
+    passFileData = passFileObj.read()
+    passFileObj.close()
+    secim = Utils.ChooseFunction(Constants.ENTER_PASSWORD)
+    count = 1
+    while True:
+        if secim.__eq__(passFileData.strip()):
+            PrintMessages.PrintAdminMain()
+            adminSecim = Utils.ChooseFunction(Constants.PLEASE_CHOOSE)
+            if adminSecim.__eq__('1'):
+                fullPath = Constants.PROJECT_PATH + Constants.SUALLAR
+                Utils.printAllFilesContent(fullPath)
+                break
+            if adminSecim.__eq__('2'):
+                sualMetni = Utils.ChooseFunction(Constants.ENTER_QUESTION_DATA).strip()
+                secim1 = Utils.ChooseFunction(Constants.SECIM1).strip()
+                secim2 = Utils.ChooseFunction(Constants.SECIM2).strip()
+                secim3 = Utils.ChooseFunction(Constants.SECIM3).strip()
+                dogruCavab = Utils.ChooseFunction(Constants.CORRECT_SECIM).strip()
+                while True:
+                    if dogruCavab in Constants.CHOOSE_LIST:
+                        existFileList = Utils.GetListFromDirectory(Constants.PROJECT_PATH + Constants.SUALLAR)
+                        findCount = 1
+                        newFileName = ""
+                        for fileName in existFileList:
+                            fileNumber = str(fileName).replace(".txt", "").replace("SUAL", "")
+                            if int(fileNumber).__eq__(findCount):
+                                findCount = findCount + 1
+                            else:
+                                newFileName = "SUAL" + str(findCount)
+                                break
+                        print(newFileName)
+
+                        newQuestionObj = open(Constants.PROJECT_PATH + Constants.SUALLAR + newFileName + ".txt", 'w')
+                        newQuestionObj.write(sualMetni)
+                        newQuestionObj.write("\n")
+                        newQuestionObj.write("\n1." + secim1)
+                        newQuestionObj.write("\n2." + secim2)
+                        newQuestionObj.write("\n3." + secim3)
+                        newQuestionObj.close()
+
+                        answObj = open(Constants.PROJECT_PATH + Constants.CORRECT_ANSWERS_FILE, "a")
+                        answObj.write("\n" + newFileName + ":" + dogruCavab)
+                        answObj.close()
+                        PrintMessages.QuestionAddedSuccess(newFileName)
+                        break
+
+                    else:
+                        dogruCavab = Utils.ChooseFunction(Constants.CORRECT_SECIM)
+
+                break
+            if adminSecim.__eq__('3'):
+                res = deleteQuestion()
+                if res:
+                    pass
+                else:
+                    break
+            if adminSecim.__eq__('4'):
+                PrintMessages.ExitProgram()
+                break
+
+
+
+
+
+        else:
+            count = count + 1
+            secim = Utils.ChooseFunction(Constants.ENTER_PASSWORD)
+        if count.__eq__(3):
+            PrintMessages.WrongNumberEntry()
+            PrintMessages.ExitProgram()
+            break

@@ -1,0 +1,58 @@
+import Utils, Constants, random, PrintMessages
+
+
+def getAllCorrectAnswers():
+    correctAnswersDict = {}
+    fObj = open(Constants.PROJECT_PATH + Constants.CORRECT_ANSWERS_FILE)
+    lines = fObj.readlines()
+    for line in lines:
+        line = line.replace("\n", "")
+        lineList = (line.split(":"))
+        correctAnswersDict[lineList[0]] = lineList[1]
+    fObj.close()
+    return correctAnswersDict
+
+
+def UserSelectedOperations():
+    entereduserName = Utils.ChooseFunction(Constants.PLEASE_ENTER_USERNAME)
+    Utils.CreateDirectory(Constants.PROJECT_PATH + Constants.CAVABLAR, entereduserName)
+    questionList = Utils.GetListFromDirectory(Constants.PROJECT_PATH + Constants.SUALLAR)
+    random.shuffle(questionList)
+    PrintMessages.ExamStarted()
+    correctAnswers = getAllCorrectAnswers()
+    # print(correctAnswers)
+    correctAnswerCount = 0
+    wrongAnswerCount = 0
+    for questionIndex in range(len(questionList)):
+        questionName = str(questionList[questionIndex]).replace(".txt", "")
+        fileObj = open(Constants.PROJECT_PATH + Constants.SUALLAR + questionList[questionIndex])
+        questionFileData = fileObj.read()
+        fileObj.close()
+        PrintMessages.PrintQuestionNumber(questionIndex + 1)
+        print(questionFileData)
+        sualinCavabi = Utils.ChooseFunction(Constants.PLEASE_ENTER_QUESTION_ANSWER)
+        if sualinCavabi.__eq__(correctAnswers[questionName]):
+            correctAnswerCount = correctAnswerCount + 1
+        else:
+            wrongAnswerCount = wrongAnswerCount + 1
+
+        AnswerdQuestionDirectory = Constants.PROJECT_PATH + Constants.CAVABLAR + entereduserName + "\\"
+        Utils.CreateDirectory(AnswerdQuestionDirectory, Constants.QUESTIONS)
+        answerdQuestionObj = open(AnswerdQuestionDirectory + Constants.QUESTIONS + questionName + ".txt", "w")
+        answerdQuestionObj.write(questionFileData)
+        answerdQuestionObj.write("\n\n")
+        answerdQuestionObj.write("Your Answer:" + sualinCavabi + "\n")
+        answerdQuestionObj.write("Correct Answer:" + correctAnswers[questionName])
+        answerdQuestionObj.close()
+
+    resObj = open(Constants.PROJECT_PATH + Constants.CAVABLAR + entereduserName + "\\" + Constants.RESULT_FILE, "w")
+    resObj.write("Correct ANSWER COUNT = " + str(correctAnswerCount) + "\n")
+    resObj.write("Wrong ANSWER COUNT   = " + str(wrongAnswerCount))
+    resObj.close()
+    PrintMessages.PrintResultFunction(correctAnswerCount, wrongAnswerCount)
+    lastchoose = Utils.ChooseFunction(Constants.PLEASE_CHOOSE)
+    if lastchoose.__eq__('1'):
+        fullPath = Constants.PROJECT_PATH + Constants.CAVABLAR + entereduserName + "\\" + Constants.QUESTIONS
+        Utils.printAllFilesContent(fullPath)
+    else:
+        PrintMessages.ExitProgram()

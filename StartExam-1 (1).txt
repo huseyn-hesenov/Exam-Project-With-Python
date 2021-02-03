@@ -1,0 +1,29 @@
+import PrintMessages, Constants, Utils, UserOperations, os
+import AdminOperations as adm
+
+PrintMessages.WelcomePage()
+
+secim = Utils.ChooseFunction(Constants.PLEASE_CHOOSE)
+chooseCount = 1
+os.chdir(Constants.PROJECT_PATH)
+# try:
+while True:
+    if secim in Constants.CHOOSE_LIST:
+        if secim.__eq__(Constants.ADMIN_SELECTED):
+            adm.AdminSelectedOperations()
+            break
+        elif secim.__eq__(Constants.USER_SELECTED):
+            UserOperations.UserSelectedOperations()
+            break
+        elif secim.__eq__(Constants.EXIT_SELECTED):
+            PrintMessages.ExitProgram()
+            break
+    else:
+        chooseCount = chooseCount + 1
+        PrintMessages.MainMenuWrongChoose()
+        secim = Utils.ChooseFunction(Constants.PLEASE_CHOOSE)
+    if chooseCount.__eq__(3):
+        PrintMessages.WrongNumberEntry()
+        break
+# except:
+#     print("Error")

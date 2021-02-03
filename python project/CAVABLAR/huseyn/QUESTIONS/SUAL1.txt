@@ -1,0 +1,7 @@
+siz kasibsiniz yoxsa varli?
+1. kasib
+2. cox kasib
+3. dehset kasib
+
+Your Answer:2
+Correct Answer:1

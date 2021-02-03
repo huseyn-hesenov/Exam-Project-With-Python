@@ -1,0 +1,4 @@
+sizin nece yasiniz var?
+1. 15 yasim var
+2. 18 yasimm var
+3. 19 yasim var
